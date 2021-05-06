@@ -29,14 +29,14 @@ steps:
     event: issue_comment.created
     actions:
       - type: gate
-        left: USGS Support Package
+        left: Error in packageVersion
         operator: test
         right: '%payload.comment.body%'
         else:
           - type: respond
-            with: 01a-install-fail.md
+            with: 01b-install-success.md
       - type: respond
-        with: 01b-install-success.md
+        with: 01a-install-fail.md
       - type: closeIssue
       - type: createIssue
         title: Create a branch in your code repository
@@ -99,9 +99,9 @@ steps:
     event: issue_comment.created
     actions:
       - type: respond
-        with: 20a-watch-drake.md
+        with: 20a-watch-targets.md
   - title: Why use a dependency manager specifically for R?
-    description: Read and watch about the benefits of formal dependency management
+    description: Read and watch about the benefits of formal dependency management in R
     link: '{{ store.why_dependency_management_issue_url }}'
     event: issues.closed
     actions:
@@ -122,7 +122,7 @@ steps:
       - type: gate
         left: "%payload.pull_request.head.ref%"
         operator: ===
-        right: remakefile
+        right: makefile
         else:
           - type: respond
             with: zz-wrong-branch.md
@@ -133,32 +133,24 @@ steps:
       - type: gate
         left: '%actions.tree.data.tree%'
         operator: includes
-        right: "path:remake.yml"
+        right: "path:_targets.R"
         else:
           - type: respond
             with: zz-missing-file.md
             data:
-              file_name: 'remake.yml'
+              file_name: '_targets.R'
         required: false
 # these `createPullRequestComment`s will silently fail if the file doesn't exist, so no big deal
       - type: createPullRequestComment
-        body: 30a-all-target.md
-        file: remake.yml
-        position: 6
+        body: 30a-download-target.md
+        file: '_targets.R'
+        position: 8
       - type: createPullRequestComment
-        body: 30b-download-target.md
-        file: remake.yml
-        position: 9
-      - type: createPullRequestComment
-        body: 30c-process-target.md
-        file: remake.yml
-        position: 12
-      - type: createPullRequestComment
-        body: 30d-plot-target.md
-        file: remake.yml
-        position: 14
+        body: 30b-plot-target.md
+        file: '_targets.R'
+        position: 17
       - type: respond
-        with: 31-add-remake-code.md
+        with: 31-add-targets-code.md
 
   - title: Depends in action
     description: >-
