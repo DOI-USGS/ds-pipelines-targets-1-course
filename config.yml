@@ -1,0 +1,177 @@
+title: Intro to Pipelines
+description: >-
+  Get an introduction to data analysis pipelines as we use them in the USGS Data
+  Science Branch
+template:
+  repo: ds-pipelines-1-template
+  name: ds-pipelines-1
+before:
+  - type: createIssue
+    title: Get started with USGS Data Science pipelines
+    body: 00-overview.md
+    store:
+      overview_issue_url: '{{ result.data.html_url }}'
+steps:
+  - title: Get the big picture
+    description: Learn about our goals and general approaches for data analysis pipelines
+    link: '{{ store.overview_issue_url }}'
+    event: issues.assigned
+    actions:
+      - type: respond
+        with: 01-install-activity.md
+        store:
+          install_activity_url: '{{ result.data.html_url }}'
+  - title: Configure your R environment
+    description: >-
+      Install packages and establish an RStudio project for the exercises in the
+      course
+    link: '{{ store.install_activity_url }}'
+    event: issue_comment.created
+    actions:
+      - type: gate
+        left: USGS Support Package
+        operator: test
+        right: '%payload.comment.body%'
+        else:
+          - type: respond
+            with: 01a-install-fail.md
+      - type: respond
+        with: 01b-install-success.md
+      - type: closeIssue
+      - type: createIssue
+        title: Create a branch in your code repository
+        body: 02-create-branch.md
+        store:
+          branch_issue_url: '{{ result.data.html_url }}'
+          branch_issue_id: '{{ result.data.number }}'
+  - title: Create a branch in your code repository
+    description: >-
+      create and checkout a new branch in your local repository; push the new branch to the remote host
+    link: '{{ store.branch_issue_url }}'
+    event: issues.closed
+    actions:
+      - type: respond
+        with: zz-goto-next-issue.md
+      - type: createIssue
+        title: Organize your project files
+        body: 10-structure.md
+        store:
+          structure_issue_url: '{{ result.data.html_url }}'
+          structure_issue_id: '{{ result.data.number }}'
+  - title: Directory structure and code decomposition
+    description: Learn about team conventions for we organize pipeline files and code
+    link: '{{ store.structure_issue_url }}'
+    event: issues.assigned
+    actions:
+      - type: respond
+        with: 10a-folders-acvitity.md
+        store:
+          structure_activity_url: '{{ result.data.html_url }}'
+  - title: Open a pull request for directory structure
+    description: Begin to organize code files according our team conventions
+    link: '{{ store.structure_activity_url }}'
+    event: pull_request.opened
+# look for "fixes #3" in the new commit message?
+# look for a PR title that isn't the default? (default will be "structure")
+    actions:
+      - type: respond
+        with: 12-function-activity.md
+        store:
+          function_activity_url: '{{ result.data.html_url }}'
+  - title: Modify your pull request with code decomposition
+    description: Decompose code into functions
+    link: '{{ store.structure_activity_url }}'
+# make sure it merges not just closes?
+    event: pull_request.closed
+    actions:
+      - type: respond
+        with: zz-goto-next-issue.md
+      - type: closeIssue
+        issue: '{{ store.structure_issue_id }}'
+      - type: createIssue
+        title: Why use a dependency manager?
+        body: 20-why-dependency-management.md
+        store:
+          why_dependency_management_issue_url: '{{ result.data.html_url }}'
+  - title: Why use a dependency manager?
+    description: Read and watch about the benefits of formal dependency management
+    link: '{{ store.why_dependency_management_issue_url }}'
+    event: issue_comment.created
+    actions:
+      - type: respond
+        with: 20a-watch-drake.md
+  - title: Why use a dependency manager specifically for R?
+    description: Read and watch about the benefits of formal dependency management
+    link: '{{ store.why_dependency_management_issue_url }}'
+    event: issues.closed
+    actions:
+      - type: respond
+        with: zz-goto-next-issue.md
+      - type: createIssue
+        title: The anatomy of a remakefile
+        body: 30-makefile-anatomy.md
+        store:
+          makefile_anatomy_url: '{{ result.data.html_url }}'
+          makefile_issue_id: '{{ result.data.number }}'
+
+  - title: The anatomy of a remakefile
+    description: Learn how to declare the relationships among files in an analysis
+    link: '{{ store.makefile_anatomy_url }}'
+    event: pull_request.opened
+    actions:
+      - type: gate
+        left: "%payload.pull_request.head.ref%"
+        operator: ===
+        right: remakefile
+        else:
+          - type: respond
+            with: zz-wrong-branch.md
+      - type: getTree
+        action_id: tree
+        recursive: true
+        sha: "%payload.pull_request.head.sha%"
+      - type: gate
+        left: '%actions.tree.data.tree%'
+        operator: includes
+        right: "path:remake.yml"
+        else:
+          - type: respond
+            with: zz-missing-file.md
+            data:
+              file_name: 'remake.yml'
+        required: false
+# these `createPullRequestComment`s will silently fail if the file doesn't exist, so no big deal
+      - type: createPullRequestComment
+        body: 30a-all-target.md
+        file: remake.yml
+        position: 6
+      - type: createPullRequestComment
+        body: 30b-download-target.md
+        file: remake.yml
+        position: 9
+      - type: createPullRequestComment
+        body: 30c-process-target.md
+        file: remake.yml
+        position: 12
+      - type: createPullRequestComment
+        body: 30d-plot-target.md
+        file: remake.yml
+        position: 14
+      - type: respond
+        with: 31-add-remake-code.md
+
+  - title: Depends in action
+    description: >-
+      Seeing "skip the work you don’t need" in action
+    link: '{{ store.skip_activity_url }}'
+    event: pull_request.closed
+    actions:
+      - type: respond
+        with: zz-goto-next-issue.md
+      - type: closeIssue
+        issue: '{{ store.makefile_issue_id }}'
+      - type: createIssue
+        title: >-
+          What's next
+        body: 40-whats-next.md
+
