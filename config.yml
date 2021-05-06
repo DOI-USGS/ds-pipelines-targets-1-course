@@ -1,6 +1,6 @@
-title: Intro to Pipelines
+title: USGS Intro to Pipelines with `targets`
 description: >-
-  Get an introduction to data analysis pipelines as we use them in the USGS Data
+  Get an introduction to `targets` data analysis pipelines as we use them in the USGS Data
   Science Branch
 template:
   repo: ds-pipelines-1-template
