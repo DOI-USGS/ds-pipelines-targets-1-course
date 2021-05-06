@@ -1,4 +1,4 @@
-We're asking everyone to invest in the concepts of _reproducibility_ and _efficiency of reproducibility_, both of which are enabled via dependency management systems such as `remake`, `scipiper`, and `drake`.
+We're asking everyone to invest in the concepts of _reproducibility_ and _efficiency of reproducibility_, both of which are enabled via dependency management systems such as `remake`, `scipiper`, `drake`, and `targets`.
 
 #### Background
 We hope that the case for _reproducibility_ is clear - we work for a science agency, and science that can't be reproduced does little to advance knowledge or trust. 

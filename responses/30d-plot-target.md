@@ -1,1 +1,0 @@
-Like with the downloaded data, let's move this plot output file into the appropriate phase folder. Make sure it aligns with what you are using as a depends in `all` (so, something like `3_visualize/out/figure_1`).

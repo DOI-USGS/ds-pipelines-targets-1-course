@@ -1,9 +1,3 @@
-This is the description we show on the course page [here](https://lab.github.com/USGS-R/ds-pipelines-1). This first paragraph will be featured at the top of the page so make it great.
-​
+Pipelines I: Intro to Data Analysis Pipelines for USGS Data Science
 
-​
-Be sure to tell the learner about the technology you are teaching, why they should learn it, how they can use it, and what you will teach them.
-​
-
-
-Include information on how they can reach you for questions about the content or course. 
+Learn about reproducible data pipelining practices used by the U.S. Geological Survey Data Science Branch. Currently, an R-based pipelining tool called [`targets`](https://github.com/ropensci/targets#targets-) is the foundation for USGS Data Science workflows but this could change in the future.
