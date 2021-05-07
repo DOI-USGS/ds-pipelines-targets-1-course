@@ -30,7 +30,12 @@ steps:
     actions:
       - type: respond
         with: 01b-install-response.md
-      - type: closeIssue
+  - title: Verify your packages
+    description: >-
+      verify that you have the correct package versions
+    link: '{{ store.install_activity_url }}'
+    event: issues.closed
+    actions:
       - type: createIssue
         title: Create a branch in your code repository
         body: 02-create-branch.md
