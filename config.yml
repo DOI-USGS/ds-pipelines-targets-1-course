@@ -21,7 +21,6 @@ steps:
         with: 01-install-activity.md
         store:
           install_activity_url: '{{ result.data.html_url }}'
-          install_activity_id: '{{ result.data.number }}'
   - title: Configure your R environment
     description: >-
       Install packages and establish an RStudio project for the exercises in the
@@ -32,7 +31,6 @@ steps:
       - type: respond
         with: 01b-install-response.md
       - type: closeIssue
-        issue: '{{ store.install_activity_id }}'
       - type: createIssue
         title: Create a branch in your code repository
         body: 02-create-branch.md
