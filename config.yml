@@ -30,14 +30,14 @@ steps:
     event: issue_comment.created
     actions:
       - type: gate
-        left: Error in packageVersion
-        operator: test
-        right: '%payload.comment.body%'
+        left: '%payload.comment.body%'
+        operator: !includes
+        right: 'Error'
         else:
           - type: respond
-            with: 01b-install-success.md
+            with: 01a-install-fail.md
       - type: respond
-        with: 01a-install-fail.md
+        with: 01b-install-success.md
       - type: closeIssue
         issue: '{{ store.install_activity_id }}'
       - type: createIssue
