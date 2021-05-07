@@ -3,8 +3,8 @@ description: >-
   Get an introduction to `targets` data analysis pipelines as we use them in the USGS Data
   Science Branch
 template:
-  repo: ds-pipelines-1-template
-  name: ds-pipelines-1
+  repo: ds-pipelines-targets-1-template
+  name: ds-pipelines-targets-1
 before:
   - type: createIssue
     title: Get started with USGS Data Science pipelines
