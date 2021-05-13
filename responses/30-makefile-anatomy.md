@@ -52,7 +52,7 @@ We're going to start with this simple example, and modify it to match our pipeli
 
 First things first: We're going to want a new branch. You can delete your previous one, since that pull request was merged. 
 ```
-git checkout master
+git checkout main
 git pull
 git branch -d structure
 git checkout -b makefile
