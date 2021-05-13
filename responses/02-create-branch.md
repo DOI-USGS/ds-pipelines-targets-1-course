@@ -13,7 +13,7 @@ git checkout -b structure
 git push -u origin structure
 ```
 
-By using `checkout`, you have switched your local branch from "master" to "structure", and any changes you make from here on out to _tracked_ files will not show up on the master branch. To take a look back at "master", you can always use `git checkout master` and return to "structure" with `git checkout structure`. We needed the `-b` flag initially because we wanted to combine two operations - creating a new branch (`-b`) and switching to that new branch (`checkout`). 
+By using `checkout`, you have switched your local branch from "main" to "structure", and any changes you make from here on out to _tracked_ files will not show up on the main branch. To take a look back at "main", you can always use `git checkout main` and return to "structure" with `git checkout structure`. We needed the `-b` flag initially because we wanted to combine two operations - creating a new branch (`-b`) and switching to that new branch (`checkout`). 
 
 While you are at it, this is a good time to invite a few collaborators to your repository, which will make it easier to assign them as reviewers in the future. In the :gear: Settings widget at the top of [your repo]({{ repoUrl }}), select "Manage access". Go ahead and invite your cohort coworkers, aappling-usgs, and jread-usgs. It should look something like this: 
 ![add some friends](https://user-images.githubusercontent.com/2349007/81471981-c0094900-91ba-11ea-93b0-0ffd31ec4ea9.png)
