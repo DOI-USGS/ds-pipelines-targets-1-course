@@ -2,7 +2,7 @@ Our `targets` pipelines in R use a `makefile` file to orchestrate the connection
 
 #### Setting up a `targets` data science pipeline
 
-In addition to phases (which we covered in {{ store.structure_activity_url }}), it is important to decompose high-level concepts (or existing scripts) into thoughtful functions and "targets" that form the building blocks of data processing pipelines. A target is a noun we use to describe a tangible output of function, which is often a file or an R object. Targets can be used as an end-product (like a summary map) or as input _into_ another function to create _another_ target. 
+In addition to phases (which we covered in {{ store.structure_activity_url }}), it is important to decompose high-level concepts (or existing scripts) into thoughtful functions and "targets" that form the building blocks of data processing pipelines. A target is a noun we use to describe a tangible output of a function, which is often a file or an R object. Targets can be used as an end-product (like a summary map) or as input _into_ another function to create _another_ target. 
 
 To set up a `targets` pipeline, you will need to create the base makefile named `_targets.R` that will declare and orchestrate the rest of the pipeline connections.
 
