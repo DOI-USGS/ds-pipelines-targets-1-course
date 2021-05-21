@@ -106,13 +106,13 @@ steps:
       - type: respond
         with: zz-goto-next-issue.md
       - type: createIssue
-        title: The anatomy of a remakefile
+        title: The anatomy of a makefile
         body: 30-makefile-anatomy.md
         store:
           makefile_anatomy_url: '{{ result.data.html_url }}'
           makefile_issue_id: '{{ result.data.number }}'
 
-  - title: The anatomy of a remakefile
+  - title: The anatomy of a makefile
     description: Learn how to declare the relationships among files in an analysis
     link: '{{ store.makefile_anatomy_url }}'
     event: pull_request.opened
