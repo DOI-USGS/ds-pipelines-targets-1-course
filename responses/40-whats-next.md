@@ -14,7 +14,7 @@ Which means everthing is up to date so all targets are :OK:
 
 - [ ] now try making a change to one of your functions in your code. What happens after running `tar_make()` then? 
 
-- [ ] access the `plot_data` target by using `tar_load(plot_data)`. (You may or may not have an R-object target named `plot_data` in your own repo at this point, so go ahead and try it with some target that you do have.) In this example, we have passed in the unquoted target name `plot_data` to `tar_load()` which creates a data.frame object in our environment called `plot_data` because that's what our example function `process_data()` creates. If you load a file target, like `tar_load(model_RMSEs_csv)`, the resulting object in your environment is a character vector with the path to the target's file.
+- [ ] access the `eval_data` target by using `tar_load(eval_data)`. (You may or may not have an R-object target named `eval_data` in your own repo at this point, so go ahead and try it with some target that you do have.) In this example, we have passed in the unquoted target name `eval_data` to `tar_load()` which creates a data.frame object in our environment called `eval_data` because that's what our example function `process_data()` creates. If you load a file target, like `tar_load(model_RMSEs_csv)`, the resulting object in your environment is a character vector with the path to the target's file.
 
 - [ ] now try making a change to the `template_1` variable in your function that creates the .txt file. What happens after running `tar_make()` then? Which targets get rebuilt and which do not? 
 

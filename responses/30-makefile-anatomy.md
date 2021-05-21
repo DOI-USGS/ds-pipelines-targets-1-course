@@ -7,7 +7,7 @@ In addition to phases (which we covered in {{ store.structure_activity_url }}), 
 To set up a `targets` pipeline, you will need to create the base makefile named `_targets.R` that will declare and orchestrate the rest of the pipeline connections.
 
 ---
-The simplest version of `_targets.R` might look something like this:
+A simple version of `_targets.R` might look something like this:
 
 ```r
 library(targets)
@@ -21,19 +21,19 @@ list(
     format = "file"
   ), 
   tar_target(
-    plot_data,
+    eval_data,
     process_data(in_filepath = model_RMSEs_csv),
   ),
   tar_target(
     figure_1_png,
-    make_plot(out_filepath = "figure_1.png", data = plot_data), 
+    make_plot(out_filepath = "figure_1.png", data = eval_data), 
     format = "file"
   )
 )
 ```
 
 
-This file defines the relationships between different "targets" (see how the target `model_RMSEs_csv` is an input to the command that creates the target `plot_data`?), tells us where to find any functions that are used to build targets (see the `source` call that points you to `code.R`), and declares the package dependencies needed to build the different targets (see the `target_option_set()` command that passes in a vector of packages). 
+This file defines the relationships between different "targets" (see how the target `model_RMSEs_csv` is an input to the command that creates the target `eval_data`?), tells us where to find any functions that are used to build targets (see the `source` call that points you to `code.R`), and declares the package dependencies needed to build the different targets (see the `target_option_set()` command that passes in a vector of packages). 
 
 We'll briefly explain some of the functions and conventions used here. For more extensive explanations, visit [the `targets` documentation](https://books.ropensci.org/targets/walkthrough.html). 
 
@@ -67,18 +67,33 @@ source("code.R")
 tar_option_set(packages = c("tidyverse", "stringr", "sbtools", "whisker"))
 
 list(
+  # Get the data from ScienceBase
   tar_target(
     model_RMSEs_csv,
     download_data(out_filepath = "model_RMSEs.csv"),
     format = "file"
   ), 
+  # Prepare the data for plotting
   tar_target(
-    plot_data,
+    eval_data,
     process_data(in_filepath = model_RMSEs_csv),
   ),
+  # Create a plot
   tar_target(
     figure_1_png,
-    make_plot(out_filepath = "figure_1.png", data = plot_data), 
+    make_plot(out_filepath = "figure_1.png", data = eval_data), 
+    format = "file"
+  ),
+  # Save the processed data
+  tar_target(
+    model_summary_results_csv,
+    write_csv(eval_data, file = "model_summary_results.csv"), 
+    format = "file"
+  ),
+  # Save the model diagnostics
+  tar_target(
+    model_diagnostic_text_txt,
+    generate_model_diagnostics(out_filepath = "model_diagnostic_text.txt", data = eval_data), 
     format = "file"
   )
 )
