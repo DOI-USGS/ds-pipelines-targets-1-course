@@ -21,6 +21,6 @@ plot_results(data)
 
 It is harder for us to connect robot responses up to assignments related to writing good functions, so we're going to be tagging the humans too...
 
-Push your commit(s) to the open pull request and assign `aappling-usgs` for review. 
+Push your commit(s) to the open pull request and assign your course contact for review. 
 
 <hr><h3 align="center">A real live human will review your pull request when you've added them as a reviewer.</h3>
