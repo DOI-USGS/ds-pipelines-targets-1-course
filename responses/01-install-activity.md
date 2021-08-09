@@ -11,7 +11,7 @@ install.packages(c("targets", "tarchetypes"))
 While you are at it, please install a few other packages that you'll use along the way:
 
 ```r
-install.packages(c("dplyr", "readr", "stringr", "sbtools", "whisker", "dataRetrieval", "ggplot2", "purrr"))
+install.packages(c("tidyverse", "sbtools", "whisker", "dataRetrieval"))
 ```
 
 When all packages are installed, comment with the message that appears after you run `packageVersion("targets")`.
