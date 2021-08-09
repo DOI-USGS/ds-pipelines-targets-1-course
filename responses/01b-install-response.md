@@ -1,4 +1,4 @@
-Thanks,  @{{ user.username }}! Now, verify that your the number you just commented is greater than or equal to `0.3.1`. 
+Thanks,  @{{ user.username }}! Now, verify that the number you just commented is greater than or equal to `0.3.1`. 
 
 If not, try re-installing:
 
