@@ -12,7 +12,7 @@ A simple version of `_targets.R` might look something like this:
 ```r
 library(targets)
 source("code.R")
-tar_option_set(packages = c("tidyverse", "stringr", "sbtools", "whisker"))
+tar_option_set(packages = c("tidyverse", "sbtools", "whisker"))
 
 list(
   tar_target(
@@ -64,7 +64,7 @@ Next, create the file with the contents we've given you by entering the followin
 cat > _targets.R
 library(targets)
 source("code.R")
-tar_option_set(packages = c("tidyverse", "stringr", "sbtools", "whisker"))
+tar_option_set(packages = c("tidyverse", "sbtools", "whisker"))
 
 list(
   # Get the data from ScienceBase

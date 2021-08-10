@@ -3,7 +3,7 @@ You'll be revising files in this repository shortly. To follow our team's standa
 Open a git bash shell (Windows) or a terminal window (Mac) and change (`cd`) into the directory you work in for projects in R (for me, this is `~/Documents/R`). There, clone the repository and set your working directory to the new project folder that was created:
 ```
 git clone git@github.com:{{ user.username }}/{{ repo }}.git
-cd ds-pipelines-1
+cd ds-pipelines-targets-1
 ```
 
 Now you should create a local branch called "structure" and push that branch up to the "remote" location (which is the github host of your repository). We're naming this branch "structure" to represent concepts in this section of the lab. In the future you'll probably choose branch names according to the type of work they contain - for example, "pull-oxygen-data" or "fix-issue-17".
