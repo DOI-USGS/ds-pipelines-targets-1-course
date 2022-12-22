@@ -8,10 +8,7 @@ Data analyses are often complex. Data pipelines are ways of managing that comple
 
 <hr>
 
-<details>
-<summary>
 ### :keyboard: Installing tools
-</summary>
 
 To complete this, you'll need some R packages. You will need to install `targets` and its companion package, `tarchetypes`. 
 
