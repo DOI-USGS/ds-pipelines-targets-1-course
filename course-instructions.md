@@ -8,7 +8,10 @@ Data analyses are often complex. Data pipelines are ways of managing that comple
 
 <hr>
 
-### :keyboard: Installing tools
+<details>
+<summary>
+<h3>:keyboard: Installing tools</h3>
+</summary>
 
 To complete this, you'll need some R packages. You will need to install `targets` and its companion package, `tarchetypes`. 
 
@@ -31,7 +34,12 @@ install.packages(c("targets", "tarchetypes"))
 library(targets)
 ```
 </details>
-### :keyboard: Creating a branch
+
+
+<details>
+<summary>
+<h3>:keyboard: Creating a branch</h3>
+</summary>
 
 You'll be revising files in this repository shortly. To follow our team's standard git workflow, you should first clone this training repository to your local machine so that you can make file changes and commits there. 
 
@@ -54,7 +62,7 @@ While you are at it, this is a good time to invite a few collaborators to your r
 ![add some friends](https://user-images.githubusercontent.com/2349007/81471981-c0094900-91ba-11ea-93b0-0ffd31ec4ea9.png)
 
 A successful push of the branch will result in a message that looks like this `"Branch 'structure' set up to track remote branch 'structure' from 'origin'"`
-
+</details>
 <hr>
 
 ### Pipeline structure 
