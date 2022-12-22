@@ -9,7 +9,9 @@ Data analyses are often complex. Data pipelines are ways of managing that comple
 <hr>
 
 <details>
-<summary>### :keyboard: Installing tools</summary>
+<summary>
+### :keyboard: Installing tools
+</summary>
 
 To complete this, you'll need some R packages. You will need to install `targets` and its companion package, `tarchetypes`. 
 
@@ -31,7 +33,7 @@ If not, try re-installing:
 install.packages(c("targets", "tarchetypes"))
 library(targets)
 ```
-
+</details>
 ### :keyboard: Creating a branch
 
 You'll be revising files in this repository shortly. To follow our team's standard git workflow, you should first clone this training repository to your local machine so that you can make file changes and commits there. 
