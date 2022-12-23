@@ -1,4 +1,4 @@
 # ds-pipelines-targets-1-course
 Intro to `targets` Data Analysis Pipelines for USGS Data Science
 
-Take the course by going to https://lab.github.com/USGS-R
+Learn about reproducible data pipelining practices used by the U.S. Geological Survey Data Science Branch. Currently, an R-based pipelining tool called [`targets`](https://github.com/ropensci/targets#targets-) is the foundation for USGS Data Science workflows but this could change in the future.
