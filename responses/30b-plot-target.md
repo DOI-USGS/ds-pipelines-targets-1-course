@@ -1,1 +1,0 @@
-Like with the downloaded data, let's move this plot output file into the appropriate phase folder (so, something like `3_visualize/out/figure_1`). You can also rename the figure if you'd like to use something more descriptive. 
