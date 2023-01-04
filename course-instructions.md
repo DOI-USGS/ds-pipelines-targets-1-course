@@ -1,4 +1,7 @@
-<h3 align="center">Pipelines overview</h3>
+<details>
+<summary><h2>Pipelines Overview</h2></summary>
+
+**Welcome to the first installment of "introduction to data pipelines"** at USGS!! :sparkles:
 
 Data analyses are often complex. Data pipelines are ways of managing that complexity. Our data pipelines have two foundational pieces:
 
@@ -6,14 +9,16 @@ Data analyses are often complex. Data pipelines are ways of managing that comple
 
 * Dependency managers such as `remake`, `scipiper`, `snakemake`, `drake`, and `targets` formalize the relationships among the datasets and functions to ensure reproducibility while also minimizing the amount of unnecessary runtime as you're creating or modifying parts of the pipeline.
 
-<hr>
+</details>
+
+<hr> 
 
 <details>
-<summary>
-<h3>:keyboard: Installing tools</h3>
-</summary>
+<summary><h2>Getting Started With USGS Data Science Pipelines</h2></summary>
 
-To complete this, you'll need some R packages. You will need to install `targets` and its companion package, `tarchetypes`. 
+<h3>:keyboard: Installing tools</h3>
+
+Before getting started, you'll need some R packages. You will need to install `targets` and its companion package, `tarchetypes`. 
 
 ```r
 install.packages(c("targets", "tarchetypes"))
@@ -33,13 +38,15 @@ If not, try re-installing:
 install.packages(c("targets", "tarchetypes"))
 library(targets)
 ```
+
+If you can't get it to work, try contacting your designated course instructor!
+
 </details>
 
+<hr>
 
 <details>
-<summary>
-<h3>:keyboard: Creating a branch</h3>
-</summary>
+<summary><h2>Create a Branch in Your Code Repository</h2></summary>
 
 You'll be revising files in this repository shortly. To follow our team's standard git workflow, you should first clone this training repository to your local machine so that you can make file changes and commits there. 
 
@@ -61,23 +68,26 @@ By using `checkout`, you have switched your local branch from "main" to "structu
 While you are at it, this is a good time to invite a few collaborators to your repository, which will make it easier to assign them as reviewers in the future. In the :gear: Settings widget at the top of your forked repo, select "Manage access". Go ahead and invite your course labmate(s). It should look something like this: 
 ![add some friends](https://user-images.githubusercontent.com/2349007/81471981-c0094900-91ba-11ea-93b0-0ffd31ec4ea9.png)
 
-A successful push of the branch will result in a message that looks like this `"Branch 'structure' set up to track remote branch 'structure' from 'origin'"`
+You can move on from this issue when you've successfully pushed your branch to remote and added some collaborators. A successful push of the branch will result in a message that looks like this `"Branch 'structure' set up to track remote branch 'structure' from 'origin'"`
+
 </details>
+
 <hr>
 
-### Pipeline structure 
+<details>
+<summary><h2>Organize Your Project Files</h2></summary>
+
 You should organize your code into functions, targets, and conceptual "phases" of work. 
 
 Often we create temporary code or are sent scripts that look like `my_work_R/my_happy_script.R` in this repository. Take a minute to look through that file now. 
 
 This code has some major issues, including that it uses a directory that is specific to a user, it plots to a non-project file location, and the structure of the code makes it hard to figure out what is happening. This simple example is a starting point for understanding the investments we make to move towards code that is more reproducible, more shareable, and understandable. Additionally, we want to structure our code and our projects in a way where we can build on top of them as the projects progress. 
 
-
 <hr> 
 
-We're going to combine several things into this assignment. You'll be asked to make some modifications to your training repository and also to create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) that captures these changes. 
+We're going to combine several tasks into this assignment. You'll be asked to make some modifications to your training repository and also to create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) that captures these changes. 
 
-#### Background on phases 
+### Background on phases 
 
 We use team conventions for how our pipelines are organized, which make it easier to hop in and out of collaborative projects and to rapidly understand what is going on where. 
 
@@ -100,7 +110,7 @@ When you are done, open a `pull request` with the changes.
 
 Great, your PR is open! Let's do some more work before merging it. Now that your files are organized into phases, next you will add a commit to your pull request that makes changes to the code itself.
 
-#### Background on functions 
+### Background on functions 
 
 In addition to phases, it is important to decompose high-level concepts (or existing scripts) into thoughtful functions and _targets_ that form the building blocks of data processing pipelines. In addition to being the name of the pipeline package, a target is a noun we use to describe a tangible output of function, often a file or an R object, that we can use as an end-product (like a summary map), or as an input into another function. 
 
@@ -119,12 +129,18 @@ data <- fetch_data()
 plot_results(data)
 ```
 
-Push your commit(s) to the open pull request and assign your course labmate for review. 
+Push your commit(s) to the open pull request and assign your course contact for review. 
 
-## Why dependency management? 
+</details>
+
+<hr>
+
+<details>
+<summary><h2>Why Use a Dependency Manager?</h2></summary>
+
 We're asking everyone to invest in the concepts of _reproducibility_ and _efficiency of reproducibility_, both of which are enabled via dependency management systems such as `remake`, `scipiper`, `drake`, and `targets`.
 
-#### Background on reproducibility
+### Background on reproducibility
 We hope that the case for _reproducibility_ is clear - we work for a science agency, and science that can't be reproduced does little to advance knowledge or trust. 
 
 But, the investment in _efficiency of reproducibility_ is harder to boil down into a zingy one-liner. Many of us have embraced this need because we have been bitten by issues in our real-world collaborations, and found that data science practices and a reproducibility culture offer great solutions. Karl Broman is an advocate for reproducibility in science and is faculty at UW Madison. He has given many talks on the subject and we're going to ask you to watch part of one of them so you can be exposed to some of Karl's science challenges and solutions. Karl will be talking about [GNU make](https://www.gnu.org/software/make/), which is the inspiration for almost every modern dependency tool that we can think of. Click on the image to kick off the video.
@@ -134,7 +150,7 @@ But, the investment in _efficiency of reproducibility_ is harder to boil down in
 
 ### :computer: Activity: Watch the above video on make and reproducible workflows up until the 11 minute mark (you are welcome to watch more)
 
-Let your labmate know what you thought was interesting about these pipeline concepts in a few sentences. 
+Let your course contact know what you thought was interesting about these pipeline concepts in a few sentences. 
 
 :sparkles: Great! :sparkles:
 
@@ -149,11 +165,16 @@ We'd like you to next check out a short part of Will's video on `targets`
 
 Let your course labmate know what contrasts you identified between solutions in `make` and what is offered in R-specific tools, like `targets`. 
 
-## Makefile anatomy 
+</details>
+
+<hr>
+
+<details>
+<summary><h2>The Anatomy of a Makefile</h2></summary>
 
 Our `targets` pipelines in R use a `makefile` file to orchestrate the connections among files, functions, and phases. In this issue, we're going to develop a basic understanding of how these files work, starting with the anatomy of the `_targets.R` file.
 
-#### Setting up a `targets` pipeline
+### Setting up a `targets` pipeline
 
 In addition to phases (which we covered earlier), it is important to decompose high-level concepts (or existing scripts) into thoughtful functions and "targets" that form the building blocks of data processing pipelines. A target is a noun we use to describe a tangible output of a function, which is often a file or an R object. Targets can be used as an end-product (like a summary map) or as input _into_ another function to create _another_ target. 
 
@@ -185,10 +206,9 @@ list(
 )
 ```
 
-
 This file defines the relationships between different "targets" (see how the target `model_RMSEs_csv` is an input to the command that creates the target `eval_data`?), tells us where to find any functions that are used to build targets (see the `source` call that points you to `code.R`), and declares the package dependencies needed to build the different targets (see the `target_option_set()` command that passes in a vector of packages). 
 
-We'll briefly explain some of the functions and conventions used here. For more extensive explanations, visit [the `targets` documentation](https://books.ropensci.org/targets/walkthrough.html). 
+We'll briefly explain some of the functions and conventions used here. For more extensive explanations, visit the [`targets` documentation](https://books.ropensci.org/targets/walkthrough.html). 
 
   - As you would with normal R scripts, put any `source` commands for loading R files and `library` commands for loading packages at the top of the file. The packages loaded here should be only those needed to build the targets _plan_; packages needed to build specific _targets_ can be loaded later.
   - Declare each target by using the function `tar_target()` and passing in a target name (`name` arg) and the expression to run to build the target (`command` arg).
@@ -254,11 +274,14 @@ list(
 
 then use `Ctrl+D` to exit the file creation mode and return to the prompt. 
 
-Finally, create a `pull request` that includes this new file (the file should be called `_targets.R`).
+Finally, create a `pull request` that includes this new file (the file should be called `_targets.R`). In the following section, we'll provide some helpful suggestions to improve your pipeline.
 
----
+</details>
 
-### Modifying your pull request 
+<hr>
+
+<details>
+<summary><h2>Modifying Your Pipeline by Adding to Your Pull Request</h2></summary>
 
 * Great work, but it would be great to download the `model_RMSEs.csv` to `1_fetch/out/model_RMSEs.csv` instead. Can you make a change to make sure that happens when you build this target?
 * Like with the downloaded data, let's move this plot output file into the appropriate phase folder (so, something like `3_visualize/out/figure_1.png`). You can also rename the figure if you'd like to use something more descriptive. 
@@ -271,13 +294,18 @@ So, what does this do for you? Well, if you had this `_targets.R` file in your c
 
 ---
 
-Now - adding on to this PR by pushing up additional commits - add and modify code, folders, and this makefile so you can build _your_ `3_visualize/out/figure_1.png` with `targets::tar_make()` (BTW, if you haven't run into this syntax, {package_name}::{function_name} allows you to run a function without `library({package_name})`). Build on your existing folders, functions, and code from the previous sections by continuing with the phases `1_fetch`, `2_process`, and `3_visualize`. Comment in the pull request with a screenshot of the build message, like we have in the message above :point_up:. Assign your course labmate to review your PR, and they may ask for a few changes before merging. 
+Now - adding on to this PR by pushing up additional commits - add and modify code, folders, and this makefile so you can build _your_ `3_visualize/out/figure_1.png` with `targets::tar_make()` (BTW, if you haven't run into this syntax, {package_name}::{function_name} allows you to run a function without `library({package_name})`). Build on your existing folders, functions, and code from the previous sections by continuing with the phases `1_fetch`, `2_process`, and `3_visualize`. Comment in the pull request with a screenshot of the build message, like we have in the message above :point_up:. Assign your course contact to review your PR, and they may ask for a few changes before merging. 
 
 There is a file in your repo called `.gitignore`. Add a line with `_targets` so that git doesn't track the contents of the `targets` directory. In addition, make sure that the contents of `1_fetch/out/*` will be ignored by git because you don't want to store changes to your downloaded .csv files (you may have already added a more generic `*/out/*` to your `.gitignore` that handles all `out/` folders in this repo). 
 
-<hr> 
+</details>
 
-## You are doing a great job! :star2: :collision: :tropical_fish:
+<hr>
+
+<details>
+<summary><h2>What's Next</h2></summary>
+
+You are doing a great job! :star2: :collision: :tropical_fish:
 
 But you may be asking why we asked you to go through all of the hard work of connecting functions, files, and targets together using a makefile. We don't blame you for wondering...
 
@@ -310,3 +338,5 @@ Would your code be easy to adjust to satisfy this request? Would you need to re-
 ---
 
 ### You have completed introductions to pipelines I. Great work!
+
+</details>
