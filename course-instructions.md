@@ -7,7 +7,7 @@ Data analyses are often complex. Data pipelines are ways of managing that comple
 
 * Good organization of code scripts helps you quickly find the file you need, whether you or a teammate created it.
 
-* Dependency managers such as `remake`, `scipiper`, `snakemake`, `drake`, and `targets` formalize the relationships among the datasets and functions to ensure reproducibility while also minimizing the amount of unnecessary runtime as you're creating or modifying parts of the pipeline.
+* Dependency managers such as `remake`, `scipiper`, `snakemake`, `drake`, and `targets` that formalize the relationships among datasets and functions. This ensures reproducibility while also minimizing the amount of unnecessary runtime as you're developing parts of the pipeline.
 
 </details>
 
