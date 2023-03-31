@@ -7,7 +7,7 @@ Data analyses are often complex. Data pipelines are ways of managing that comple
 
 * Good organization of code scripts helps you quickly find the file you need, whether you or a teammate created it.
 
-* Dependency managers such as `remake`, `scipiper`, `snakemake`, `drake`, and `targets` formalize the relationships among the datasets and functions to ensure reproducibility while also minimizing the amount of unnecessary runtime as you're creating or modifying parts of the pipeline.
+* Dependency managers such as `remake`, `scipiper`, `snakemake`, `drake`, and `targets` that formalize the relationships among datasets and functions. This ensures reproducibility while also minimizing the amount of unnecessary runtime as you're developing parts of the pipeline.
 
 </details>
 
@@ -64,12 +64,12 @@ git checkout -b structure
 git push -u origin structure
 ```
 
-By using `checkout`, you have switched your local branch from "main" to "structure", and any changes you make from here on out to _tracked_ files will not show up on the main branch. To take a look back at "main", you can always use `git checkout main` and return to "structure" with `git checkout structure`. We needed the `-b` flag initially because we wanted to combine two operations - creating a new branch (`-b`) and switching to that new branch (`checkout`). 
+By using `checkout`, you have switched your local branch from "main" to "structure", and any changes you make from here on out to _tracked_ files will not show up on the main branch. To take a look back at "main", you can always use `git checkout main` and return to "structure" with `git checkout structure`. We needed the `-b` flag initially because we wanted to combine two operations - creating a new branch (`-b`) and switching to that new branch (`checkout`). A successful push of the branch will result in a message that looks like this: `Branch 'structure' set up to track 'origin/structure'`.
 
 While you are at it, this is a good time to invite a few collaborators to your repository, which will make it easier to assign them as reviewers in the future. In the :gear: Settings widget at the top of your forked repo, select "Manage access". Go ahead and invite your course labmate(s). It should look something like this: 
 ![add some friends](https://user-images.githubusercontent.com/2349007/81471981-c0094900-91ba-11ea-93b0-0ffd31ec4ea9.png)
 
-You can move on from this issue when you've successfully pushed your branch to remote and added some collaborators. A successful push of the branch will result in a message that looks like this `"Branch 'structure' set up to track remote branch 'structure' from 'origin'"`
+You can move on from this step when you've successfully pushed your branch to remote and added some collaborators.
 
 </details>
 
