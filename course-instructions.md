@@ -102,7 +102,7 @@ We recommend having `src` and `out` folders within each phase folder that contai
 
 ### :keyboard: Activity: Restructure your code repository to follow our team's conventions for folders and files
 
-Create a two phase directory structure for "fetch" and "process" concepts, and include `src` and `out` folders. Move the example script (`my_happy_script.R`) from the `my_work_R` folder into one of the `src` folders (at this time, it doesn't matter which one you choose) and delete any existing folders that aren't part of the intended structure.
+Create a two phase directory structure for "fetch" and "process" steps, and include `src` and `out` subdirectories in both. Move the example script (`my_happy_script.R`) from the `my_work_R` folder into one of the `src` folders (at this time, it doesn't matter which one you choose) and delete any existing folders that aren't part of the intended structure.
 
 When you are done, open a `pull request` with the changes.
 
