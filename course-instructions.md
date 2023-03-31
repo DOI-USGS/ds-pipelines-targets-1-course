@@ -208,7 +208,10 @@ list(
 )
 ```
 
-This file defines the relationships between different "targets" (see how the target `model_RMSEs_csv` is an input to the command that creates the target `eval_data`?), tells us where to find any functions that are used to build targets (see the `source` call that points you to `code.R`), and declares the package dependencies needed to build the different targets (see the `target_option_set()` command that passes in a vector of packages). 
+This file does three things:
+ - It defines the relationships between different "targets" (see how the target `model_RMSEs_csv` is an input to the command that creates the target `eval_data`?),
+ - it tells us where to find any functions that are used to build targets (see the `source` call that points you to `code.R`), and 
+ - it declares the package dependencies needed to build the different targets (see the `target_option_set()` command that passes in a vector of packages). 
 
 We'll briefly explain some of the functions and conventions used here. For more extensive explanations, visit the [`targets` documentation](https://books.ropensci.org/targets/walkthrough.html). 
 
