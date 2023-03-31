@@ -52,6 +52,7 @@ You'll be revising files in this repository shortly. To follow our team's standa
 
 Open a git bash shell (Windows) or a terminal window (Mac) and change (`cd`) into the directory you work in for projects in R (for me, this is `~/Documents/R`). There, clone the repository and set your working directory to the new project folder that was created:
 ```
+cd ,your preferred working directory for projects>
 git clone git@github.com:<username>/ds-pipelines-targets-1-course.git
 cd ds-pipelines-targets-1-course
 ```
