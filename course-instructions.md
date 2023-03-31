@@ -68,7 +68,7 @@ By using `checkout`, you have switched your local branch from "main" to "structu
 While you are at it, this is a good time to invite a few collaborators to your repository, which will make it easier to assign them as reviewers in the future. In the :gear: Settings widget at the top of your forked repo, select "Manage access". Go ahead and invite your course labmate(s). It should look something like this: 
 ![add some friends](https://user-images.githubusercontent.com/2349007/81471981-c0094900-91ba-11ea-93b0-0ffd31ec4ea9.png)
 
-You can move on from this issue when you've successfully pushed your branch to remote and added some collaborators.
+You can move on from this step when you've successfully pushed your branch to remote and added some collaborators.
 
 </details>
 
