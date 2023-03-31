@@ -158,7 +158,7 @@ Let your course contact know what you thought was interesting about these pipeli
 
 You could consider [GNU make](https://www.gnu.org/software/make/) to be a great grandparent of the packages we referred to early in this lesson (`remake`, `scipiper`, `drake`, and `targets`). Will Landau, the lead developer of `targets`, has added a lot of useful features to dependency management systems in R, and has a great way of summarizing why we put energy into using these tools: **"Skip the work you don't need"**
 
-We'd like you to next check out a short part of Will's video on `targets`
+Check out Will's video on `targets`
 
 [![reproducible workflows with R targets](https://user-images.githubusercontent.com/2349007/81425244-cea12300-911c-11ea-8555-0c5a61fbee21.png)](https://www.youtube.com/watch?v=Gqn7Xn4d5NI "Will Landau, Reproducible computation at scale in R with targets, NYC Data Hackers virtual meetup")
 
