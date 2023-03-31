@@ -83,10 +83,9 @@ USGS Data Science code repositories have a modular and predictable organizationa
 Often we create temporary code or are sent scripts that look like `my_work_R/my_happy_script.R` in this repository. Take a minute to look through that file now. 
 
 This code has some major issues, including that it uses a directory that is specific to a user, it plots to a non-project file location, and the structure of the code makes it hard to figure out what is happening. This simple example is a starting point for understanding the investments we make to move towards code that is more reproducible, more shareable, and understandable. Additionally, we want to structure our code and our projects in a way where we can build on top of them as the projects progress. 
+We're going to provide a little background information and then combine several tasks into this assignment. You'll be asked to make some modifications to your training repository and also to create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) that captures these changes. 
 
 <hr> 
-
-We're going to combine several tasks into this assignment. You'll be asked to make some modifications to your training repository and also to create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) that captures these changes. 
 
 ### Background on phases 
 
