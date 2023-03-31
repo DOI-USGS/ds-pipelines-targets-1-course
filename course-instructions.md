@@ -78,7 +78,7 @@ You can move on from this step when you've successfully pushed your branch to re
 <details>
 <summary><h2>Organize Your Project Files</h2></summary>
 
-You should organize your code into functions, targets, and conceptual "phases" of work. 
+USGS Data Science code repositories have a modular and predictable organizational structure. We organize our code into functions, targets, and conceptual "phases" of work. 
 
 Often we create temporary code or are sent scripts that look like `my_work_R/my_happy_script.R` in this repository. Take a minute to look through that file now. 
 
