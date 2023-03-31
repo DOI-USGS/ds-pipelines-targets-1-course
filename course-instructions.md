@@ -125,7 +125,7 @@ Split this single script into several functions that can be used to build the sa
 
 Note: you should only commit the code required to run your scripts. Generally, any data or files that are produced by the code should not be committed to GitHub. For this reason, add anything that ends up in `*/out/*` folders to your `.gitignore` file (read more about `.gitignore` files [here](https://www.atlassian.com/git/tutorials/saving-changes/gitignore)) so that you do not accidentally commit them to GitHub.
 
-Since you are turning the script into functions, let others know via a comment made to the pull request conversation that specifies how to run your code. For example:
+Let your collaborators/reviewers know via a comment made to the pull request conversation that specifies how to run your code. For example:
 ```r
 data <- fetch_data()
 plot_results(data)
