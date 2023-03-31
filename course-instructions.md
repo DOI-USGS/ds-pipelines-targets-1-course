@@ -212,7 +212,7 @@ This file defines the relationships between different "targets" (see how the tar
 
 We'll briefly explain some of the functions and conventions used here. For more extensive explanations, visit the [`targets` documentation](https://books.ropensci.org/targets/walkthrough.html). 
 
-  - As you would with normal R scripts, put any `source` commands for loading R files and `library` commands for loading packages at the top of the file. The packages loaded here should be only those needed to build the targets _plan_; packages needed to build specific _targets_ can be loaded later.
+  - Put any `source` commands for loading R files and `library` commands for loading packages at the top of the file. The packages loaded here should be only those needed to build the targets _plan_; packages needed to build specific _targets_ can be loaded later. We recommend putting `source` and `library commands at the top of the file so that they are easy to find when opening the script.
   - Declare each target by using the function `tar_target()` and passing in a target name (`name` arg) and the expression to run to build the target (`command` arg).
   - There are two types of targets - objects and files. If your target is a file, you need to add `format = "file"` to your `tar_target()` call and the command needs to return the filename of the new file.
   - Setup the full pipeline by combining all targets into a single `list` object.
