@@ -293,11 +293,13 @@ So, what does this do for you? Well, if you had this `_targets.R` file in your c
 
 ![targets run image](https://user-images.githubusercontent.com/13220910/128781588-64911332-6464-4cb3-b77d-eaa7063d6bc1.png)
 
+Now that you have successfully run your first pipeline, your repository should contain a folder called `_targets`. This folder gets created when you run `tar_make()` and it stores all R objects and metadata created as part of the pipeline. More information about the `_targets` folder is available in the [`targets` documentation](https://books.ropensci.org/targets/data.html#local-data-store)
+
+Since the `_targets` folder and its contents are not required to run your pipeline they should not be committed to GitHub. Let's take a moment to edit your `.gitignore` file. Add a line with `_targets` so that git doesn't track the contents of the `targets` directory. While you're in the `.gitignore` file, you should also double check that the contents of `1_fetch/out/*` will be ignored by git because you don't want to store changes to your downloaded .csv files (you may have already added a more generic `*/out/*` to your `.gitignore` that handles all `out/` folders in this repo).
+
 ---
 
 Now - adding on to this PR by pushing up additional commits - add and modify code, folders, and this makefile so you can build _your_ `3_visualize/out/figure_1.png` with `targets::tar_make()` (BTW, if you haven't run into this syntax, {package_name}::{function_name} allows you to run a function without `library({package_name})`). Build on your existing folders, functions, and code from the previous sections by continuing with the phases `1_fetch`, `2_process`, and `3_visualize`. Comment in the pull request with a screenshot of the build message, like we have in the message above :point_up:. Assign your course contact to review your PR, and they may ask for a few changes before merging. 
-
-There is a file in your repo called `.gitignore`. Add a line with `_targets` so that git doesn't track the contents of the `targets` directory. In addition, make sure that the contents of `1_fetch/out/*` will be ignored by git because you don't want to store changes to your downloaded .csv files (you may have already added a more generic `*/out/*` to your `.gitignore` that handles all `out/` folders in this repo). 
 
 </details>
 
