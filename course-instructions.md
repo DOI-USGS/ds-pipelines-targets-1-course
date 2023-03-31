@@ -284,7 +284,7 @@ Finally, create a `pull request` that includes this new file (the file should be
 <details>
 <summary><h2>Modifying Your Pipeline by Adding to Your Pull Request</h2></summary>
 
-* Great work, but it would be great to download the `model_RMSEs.csv` to `1_fetch/out/model_RMSEs.csv` instead. Can you make a change to make sure that happens when you build this target?
+* Great work, but now you've realized you want to download the `model_RMSEs.csv` to `1_fetch/out/model_RMSEs.csv` instead. Can you make a change to make sure that happens when you build this target?
 * Like with the downloaded data, let's move this plot output file into the appropriate phase folder (so, something like `3_visualize/out/figure_1.png`). You can also rename the figure if you'd like to use something more descriptive. 
 
 <hr> 
