@@ -1,0 +1,38 @@
+[
+  {
+    "name": "ds-pipelines-targets-1-course",
+    "organization": "U.S. Geological Survey",
+    "description": "Intro to Data Analysis Pipelines using `targets` for USGS Data Science",
+    "version": "main",
+    "status": "Development",
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "Public Domain, CC0-1.0",
+          "URL": "https://github.com/DOI-USGS/ds-pipelines-targets-1-course/raw/main/LICENSE.md"
+        }
+      ]
+    },
+    "homepageURL": "https://github.com/DOI-USGS/ds-pipelines-targets-1-course/",
+    "downloadURL": "https://github.com/DOI-USGS/ds-pipelines-targets-1-course/archive/refs/heads/main.zip",
+    "disclaimerURL": "https://github.com/DOI-USGS/ds-pipelines-targets-1-course/raw/main/DISCLAIMER.md",
+    "repositoryURL": "https://github.com/DOI-USGS/ds-pipelines-targets-1-course.git",
+    "vcs": "git",
+    "laborHours": 200,
+    "tags": [
+      "R",
+      "USGS"
+    ],
+    "languages": [
+      "R"
+    ],
+    "contact": {
+      "name": "Julie Padilla",
+      "email": "jpadilla@usgs.gov"
+    },
+    "date": {
+      "metadataLastUpdated": "2023-04-23"
+    }
+  }
+]
