@@ -14,60 +14,69 @@ item_file_download('5d925066e4b0c4f70d0d0599', names = 'me_RMSE.csv', destinatio
 
 eval_data <- readr::read_csv(mendota_file, col_types = 'iccd') %>%
   filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
-  mutate(col = case_when(
-    model_type == 'pb' ~ '#1b9e77',
-    model_type == 'dl' ~'#d95f02',
-    model_type == 'pgdl' ~ '#7570b3'
-  ), pch = case_when(
-    model_type == 'pb' ~ 21,
-    model_type == 'dl' ~ 22,
-    model_type == 'pgdl' ~ 23
-  ), n_prof = as.numeric(str_extract(exper_id, '[0-9]+')))
+  mutate(
+    col = case_when(
+      model_type == 'pb' ~ '#1b9e77',
+      model_type == 'dl' ~'#d95f02',
+      model_type == 'pgdl' ~ '#7570b3'
+      ), 
+    pch = case_when(
+      model_type == 'pb' ~ 21,
+      model_type == 'dl' ~ 22,
+      model_type == 'pgdl' ~ 23
+      ), 
+    n_prof = as.numeric(str_extract(exper_id, '[0-9]+'))
+    )
 
+# start of plot -------------------
 
-
-png(file = file.path(project_output_dir, 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
-par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
-
-plot(NA, NA, xlim = c(2, 1000), ylim = c(4.7, 0.75),
-     ylab = "Test RMSE (°C)", xlab = "Training temperature profiles (#)", log = 'x', axes = FALSE)
-
+# define plot details
 n_profs <- c(2, 10, 50, 100, 500, 980)
+line_wt <- 0.5
+pt_size <- 3
+lim_y <- c(0, 5)
+lim_x <- c(1, 1000)
+dist_dodge <- 0.05
 
-axis(1, at = c(-100, n_profs, 1e10), labels = c("", n_profs, ""), tck = -0.01)
-axis(2, at = seq(0,10), las = 1, tck = -0.01)
+# Create a plot
 
-# slight horizontal offsets so the markers don't overlap:
-offsets <- data.frame(pgdl = c(0.15, 0.5, 3, 7, 20, 30)) %>%
-  mutate(dl = -pgdl, pb = 0, n_prof = n_profs)
+## add data and labels
+g <- 
+  ggplot(data = data_plt, 
+         aes(color = model_type, shape = model_type)) +
+  geom_line(aes(x = n_prof, y = mean), 
+            linetype = "dashed",
+            lwd = line_wt,
+            position = position_dodge(width = dist_dodge)) +
+  geom_linerange(aes(x = n_prof, ymin = min, ymax = max),
+                 lwd = line_wt,
+                 position = position_dodge(width = dist_dodge)) +
+  geom_point(aes(x = n_prof, y = mean), 
+             position = position_dodge(width = dist_dodge), 
+             fill = "white",
+             size = pt_size) +
+  labs(
+    x = "Training Temperature Profiles (#)",
+    y = "Test RMSE (°C)"
+  )
 
+# modify scales
+g <- g +
+  scale_x_log10(breaks = n_profs, limits = lim_x) +
+  scale_y_continuous(limits = rev(lim_y), trans = "reverse") +
+  scale_color_manual("", values = c("#7570b3", "#d95f02", "#1b9e77")) +
+  scale_shape_manual("", values = c(23, 22, 21))
 
-for (mod in c('pb','dl','pgdl')){
-  mod_data <- filter(eval_data, model_type == mod)
-  mod_profiles <- unique(mod_data$n_prof)
-  for (mod_profile in mod_profiles){
-    d <- filter(mod_data, n_prof == mod_profile) %>% summarize(y0 = min(rmse), y1 = max(rmse), col = unique(col))
-    x_pos <- offsets %>% filter(n_prof == mod_profile) %>% pull(!!mod) + mod_profile
-    lines(c(x_pos, x_pos), c(d$y0, d$y1), col = d$col, lwd = 2.5)
-  }
-  d <- group_by(mod_data, n_prof) %>% summarize(y = mean(rmse), col = unique(col), pch = unique(pch)) %>%
-    rename(x = n_prof) %>% arrange(x)
-  
-  lines(d$x + tail(offsets[[mod]], nrow(d)), d$y, col = d$col[1], lty = 'dashed')
-  points(d$x + tail(offsets[[mod]], nrow(d)), d$y, pch = d$pch[1], col = d$col[1], bg = 'white', lwd = 2.5, cex = 1.5)
-  
-}
+# finalize theme
+g <- g +
+  theme_classic(base_size = 14) +
+  theme(legend.position = c(0.3, 0.90))
 
-points(2.2, 0.79, col = '#7570b3', pch = 23, bg = 'white', lwd = 2.5, cex = 1.5)
-text(2.3, 0.80, 'Process-Guided Deep Learning', pos = 4, cex = 1.1)
+# save plot 
+ggsave(plot = g, filename = file_out, 
+       width = 1600, height = 2000, units = "px")
 
-points(2.2, 0.94, col = '#d95f02', pch = 22, bg = 'white', lwd = 2.5, cex = 1.5)
-text(2.3, 0.95, 'Deep Learning', pos = 4, cex = 1.1)
-
-points(2.2, 1.09, col = '#1b9e77', pch = 21, bg = 'white', lwd = 2.5, cex = 1.5)
-text(2.3, 1.1, 'Process-Based', pos = 4, cex = 1.1)
-
-dev.off()
+# end of plot -------------------
 
 readr::write_csv(eval_data, path = file.path(project_output_dir, 'model_summary_results.csv'))
 
