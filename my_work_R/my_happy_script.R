@@ -19,9 +19,9 @@ eval_data <- readr::read_csv(mendota_file, col_types = 'iccd') |>
   filter(str_detect(exper_id, 'similar_[0-9]+')) |>
   group_by(exper_id, model_type) |> 
   summarize(
-    mean = mean(rmse),
-    min = min(rmse),
-    max = max(rmse),
+    mean_rmse = mean(rmse),
+    min_rmse = min(rmse),
+    max_rmse = max(rmse),
     ct_exper = n()
   )
 
@@ -65,14 +65,14 @@ dist_dodge <- 0.05
 g <- 
   ggplot(data = eval_data, 
          aes(color = model_legend, shape = model_legend)) +
-  geom_line(aes(x = n_prof, y = mean), 
+  geom_line(aes(x = n_prof, y = mean_rmse), 
             linetype = "dashed",
             lwd = line_wt,
             position = position_dodge(width = dist_dodge)) +
-  geom_linerange(aes(x = n_prof, ymin = min, ymax = max),
+  geom_linerange(aes(x = n_prof, ymin = min_rmse, ymax = max_rmse),
                  lwd = line_wt,
                  position = position_dodge(width = dist_dodge)) +
-  geom_point(aes(x = n_prof, y = mean), 
+  geom_point(aes(x = n_profs, y = mean_rmse), 
              position = position_dodge(width = dist_dodge), 
              fill = "white",
              size = pt_size) +
@@ -94,22 +94,22 @@ g <- g +
   theme(legend.position = c(0.3, 0.90))
 
 # save plot 
-ggsave(plot = g, filename = file_out, 
+ggsave(plot = g, filename = file.path(project_output_dir, 'figure_1.png'), 
        width = 1600, height = 2000, units = "px")
 
-
+# write eval data
 readr::write_csv(eval_data, path = file.path(project_output_dir, 'model_summary_results.csv'))
 
 
-render_data <- list(pgdl_980mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_980") |> pull(mean) |> round(2),
-                    dl_980mean = filter(eval_data, model_type == 'dl', exper_id == "similar_980") |> pull(mean) |> round(2),
-                    pb_980mean = filter(eval_data, model_type == 'pb', exper_id == "similar_980") |> pull(mean) |> round(2),
-                    dl_500mean = filter(eval_data, model_type == 'dl', exper_id == "similar_500") |> pull(mean) |> round(2),
-                    pb_500mean = filter(eval_data, model_type == 'pb', exper_id == "similar_500") |> pull(mean) |> round(2),
-                    dl_100mean = filter(eval_data, model_type == 'dl', exper_id == "similar_100") |> pull(mean) |> round(2),
-                    pb_100mean = filter(eval_data, model_type == 'pb', exper_id == "similar_100") |> pull(mean) |> round(2),
-                    pgdl_2mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_2") |> pull(mean) |> round(2),
-                    pb_2mean = filter(eval_data, model_type == 'pb', exper_id == "similar_2") |> pull(mean) |> round(2))
+render_data <- list(pgdl_980mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_980") |> pull(mean_rmse) |> round(2),
+                    dl_980mean = filter(eval_data, model_type == 'dl', exper_id == "similar_980") |> pull(mean_rmse) |> round(2),
+                    pb_980mean = filter(eval_data, model_type == 'pb', exper_id == "similar_980") |> pull(mean_rmse) |> round(2),
+                    dl_500mean = filter(eval_data, model_type == 'dl', exper_id == "similar_500") |> pull(mean_rmse) |> round(2),
+                    pb_500mean = filter(eval_data, model_type == 'pb', exper_id == "similar_500") |> pull(mean_rmse) |> round(2),
+                    dl_100mean = filter(eval_data, model_type == 'dl', exper_id == "similar_100") |> pull(mean_rmse) |> round(2),
+                    pb_100mean = filter(eval_data, model_type == 'pb', exper_id == "similar_100") |> pull(mean_rmse) |> round(2),
+                    pgdl_2mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_2") |> pull(mean_rmse) |> round(2),
+                    pb_2mean = filter(eval_data, model_type == 'pb', exper_id == "similar_2") |> pull(mean_rmse) |> round(2))
 
 template_1 <- 'resulted in mean RMSEs (means calculated as average of RMSEs from the five dataset iterations) of {{pgdl_980mean}}, {{dl_980mean}}, and {{pb_980mean}}°C for the PGDL, DL, and PB models, respectively.
   The relative performance of DL vs PB depended on the amount of training data. The accuracy of Lake Mendota temperature predictions from the DL was better than PB when trained on 500 profiles 
