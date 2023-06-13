@@ -1,19 +1,32 @@
-
+# Load libraries ----------------
 library(dplyr)
+library(forcats)
+library(ggplot2)
 library(readr)
 library(stringr)
 library(sbtools)
 library(whisker)
 
+# Set directory -----------------
 project_output_dir <- 'my_dir'
-
 dir.create(project_output_dir)
 
 mendota_file <- file.path(project_output_dir, 'model_RMSEs.csv')
 item_file_download('5d925066e4b0c4f70d0d0599', names = 'me_RMSE.csv', destinations = mendota_file, overwrite_file = TRUE)
 
+# create data summary -----------
 eval_data <- readr::read_csv(mendota_file, col_types = 'iccd') |>
   filter(str_detect(exper_id, 'similar_[0-9]+')) |>
+  group_by(exper_id, model_type) |> 
+  summarize(
+    mean = mean(rmse),
+    min = min(rmse),
+    max = max(rmse),
+    ct_exper = n()
+  )
+
+# add columns relevant to plotting
+eval_data <- eval_data |> 
   mutate(
     col = case_when(
       model_type == 'pb' ~ '#1b9e77',
@@ -25,10 +38,19 @@ eval_data <- readr::read_csv(mendota_file, col_types = 'iccd') |>
       model_type == 'dl' ~ 22,
       model_type == 'pgdl' ~ 23
       ), 
-    n_prof = as.numeric(str_extract(exper_id, '[0-9]+'))
+    n_prof = as.numeric(str_extract(exper_id, '[0-9]+')),
+    model_type = factor(model_type, levels = c("pgdl", "dl", "pb"))
+    ) |> 
+    mutate(
+      model_legend = fct_recode(
+        model_type,
+        "Process-Guided Deep Learning" = "pgdl",
+        "Deep Learning" = "dl",
+        "Process-Based" = "pb"
+      )
     )
 
-# start of plot -------------------
+# make plot -------------------
 
 # define plot details
 n_profs <- c(2, 10, 50, 100, 500, 980)
@@ -38,12 +60,11 @@ lim_y <- c(0, 5)
 lim_x <- c(1, 1000)
 dist_dodge <- 0.05
 
-# Create a plot
 
-## add data and labels
+# create basic plot
 g <- 
-  ggplot(data = data_plt, 
-         aes(color = model_type, shape = model_type)) +
+  ggplot(data = eval_data, 
+         aes(color = model_legend, shape = model_legend)) +
   geom_line(aes(x = n_prof, y = mean), 
             linetype = "dashed",
             lwd = line_wt,
@@ -76,20 +97,19 @@ g <- g +
 ggsave(plot = g, filename = file_out, 
        width = 1600, height = 2000, units = "px")
 
-# end of plot -------------------
 
 readr::write_csv(eval_data, path = file.path(project_output_dir, 'model_summary_results.csv'))
 
 
-render_data <- list(pgdl_980mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_980") |> pull(rmse) |> mean |> round(2),
-                    dl_980mean = filter(eval_data, model_type == 'dl', exper_id == "similar_980") |> pull(rmse) |> mean |> round(2),
-                    pb_980mean = filter(eval_data, model_type == 'pb', exper_id == "similar_980") |> pull(rmse) |> mean |> round(2),
-                    dl_500mean = filter(eval_data, model_type == 'dl', exper_id == "similar_500") |> pull(rmse) |> mean |> round(2),
-                    pb_500mean = filter(eval_data, model_type == 'pb', exper_id == "similar_500") |> pull(rmse) |> mean |> round(2),
-                    dl_100mean = filter(eval_data, model_type == 'dl', exper_id == "similar_100") |> pull(rmse) |> mean |> round(2),
-                    pb_100mean = filter(eval_data, model_type == 'pb', exper_id == "similar_100") |> pull(rmse) |> mean |> round(2),
-                    pgdl_2mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_2") |> pull(rmse) |> mean |> round(2),
-                    pb_2mean = filter(eval_data, model_type == 'pb', exper_id == "similar_2") |> pull(rmse) |> mean |> round(2))
+render_data <- list(pgdl_980mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_980") |> pull(mean) |> round(2),
+                    dl_980mean = filter(eval_data, model_type == 'dl', exper_id == "similar_980") |> pull(mean) |> round(2),
+                    pb_980mean = filter(eval_data, model_type == 'pb', exper_id == "similar_980") |> pull(mean) |> round(2),
+                    dl_500mean = filter(eval_data, model_type == 'dl', exper_id == "similar_500") |> pull(mean) |> round(2),
+                    pb_500mean = filter(eval_data, model_type == 'pb', exper_id == "similar_500") |> pull(mean) |> round(2),
+                    dl_100mean = filter(eval_data, model_type == 'dl', exper_id == "similar_100") |> pull(mean) |> round(2),
+                    pb_100mean = filter(eval_data, model_type == 'pb', exper_id == "similar_100") |> pull(mean) |> round(2),
+                    pgdl_2mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_2") |> pull(mean) |> round(2),
+                    pb_2mean = filter(eval_data, model_type == 'pb', exper_id == "similar_2") |> pull(mean) |> round(2))
 
 template_1 <- 'resulted in mean RMSEs (means calculated as average of RMSEs from the five dataset iterations) of {{pgdl_980mean}}, {{dl_980mean}}, and {{pb_980mean}}°C for the PGDL, DL, and PB models, respectively.
   The relative performance of DL vs PB depended on the amount of training data. The accuracy of Lake Mendota temperature predictions from the DL was better than PB when trained on 500 profiles 
