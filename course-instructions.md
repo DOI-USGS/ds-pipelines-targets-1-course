@@ -102,7 +102,44 @@ We recommend having `src` and `out` folders within each phase folder that contai
 
 ### :keyboard: Activity: Restructure your code repository to follow our team's conventions for folders and files
 
+Currently, your local repository should look like this:
+```
+ds-pipelines-targets-1-course
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── DISCLAIMER.md
+├── LICENSE.md
+├── README.md
+├── archive
+├── code.json
+├── course-instructions.md
+├── ds-pipelines-targets-1-course.Rproj
+└── my_work_R
+    └── my_happy_script.R
+```
+
 Create a two phase directory structure for "fetch" and "process" steps, and include `src` and `out` subdirectories in both. Move the example script (`my_happy_script.R`) from the `my_work_R` folder into one of the `src` folders (at this time, it doesn't matter which one you choose) and delete any existing folders that aren't part of the intended structure.
+
+After adding two new phases, your repository should look like this:
+```
+ds-pipelines-targets-1-course
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── DISCLAIMER.md
+├── LICENSE.md
+├── README.md
+├── archive
+├── code.json
+├── course-instructions.md
+├── ds-pipelines-targets-1-course.Rproj
+├── 1_fetch
+│   ├── out
+│   └── src
+│       └── my_happy_script.R
+└── 2_process
+    ├── out
+    └── src
+```
 
 When you are done, open a `pull request` with the changes.
 
@@ -130,6 +167,29 @@ Let your collaborators/reviewers know via a comment made to the pull request con
 data <- fetch_data()
 plot_results(data)
 ```
+
+Push your commit(s) to the open pull request and continue. 
+
+### What about my empty `out` folders?
+
+When updating the directory structure to accomodate your phases and then adding your functions, you should have added `*/out/*` to your `.gitignore` file. But what if one of the functions you wrote depends on the existence of an `out` subfolder such as `1_fetch/out`? As noted earlier, you generally do not want to commit files that end up in an `out` subfolder because the pipeline should be able to build outputs from scratch, but you may want to include the file structure so that code that depends on that structure can successfully run.
+
+`git` does not track folders without files in them:
+![empty out folder image](https://github.com/DOI-USGS/ds-pipelines-targets-1-course/tree/main/archive/img/example_empty_folder.png)
+
+One approach to getting around this, is to include a [hidden file](https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory) to your `out` subfolders. When setting up a phased pipeline, we typically add a `.empty` file to each `out` subfolder and then tell `git` to ignore all files in `*/out/*` except for the `.empty` file. You can negate any statement in `.gitignore` by using the exclamation point (`!`). Here's an example of what that might look like in your `.gitignore` file:
+```
+*/out/*
+!1_fetch/out/.empty
+```
+
+In the above example, `git` will ignore all files in all `out` subfolders except for the `.empty` file in `1_fetch/out`.
+
+To create a `.empty` file you can use a text editor to create a new text file and then, when prompted to save, change the file name from the default value (e..g, `new file.txt`) to `.empty`.
+
+
+### :keyboard: Activity: Account for empty folders in your file structure
+Add hidden files (`.empty`) to each of your `out` subfolders and then update `.gitignore`
 
 Push your commit(s) to the open pull request and assign your course contact for review. 
 
