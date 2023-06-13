@@ -82,14 +82,14 @@ USGS Data Science code repositories have a modular and predictable organizationa
 
 Often we create temporary code or are sent scripts that look like `my_work_R/my_happy_script.R` in this repository. Take a minute to look through that file now. 
 
-This code has some major issues, including that it uses a directory that is specific to a user, it plots to a non-project file location, and the structure of the code makes it hard to figure out what is happening. This simple example is a starting point for understanding the investments we make to move towards code that is more reproducible, more shareable, and understandable. Additionally, we want to structure our code and our projects in a way where we can build on top of them as the projects progress. 
+This code has some major issues, including that it uses a directory that is specific to a user, it plots to a non-project file location, and the structure of the code makes it hard to figure out what is happening. This simple example is a starting point for understanding the investments we make to move towards code that is easier to reproduce, share, and understand. Additionally, we want to structure our code and our projects in a way where we can build on top of them as the projects progress. 
 We're going to provide a little background information and then combine several tasks into this assignment. You'll be asked to make some modifications to your training repository and also to create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) that captures these changes. 
 
 <hr> 
 
 ### Background on phases 
 
-We use team conventions for how our pipelines are organized, which make it easier to hop in and out of collaborative projects and to rapidly understand what is going on where. 
+We use team conventions for how our pipelines are organized, which make it easier to hop in and out of collaborative projects and to rapidly understand what is going on within a pipeline. 
 
 We refer to major elements of a pipeline as "phases", and name phases according to their purpose, such as `1_fetch` or `2_process`. These phases are used to separate files and data based on the _intent_ of the code we are writing, and make it tractable to figure out where you'd need to edit code if you were coming in fresh to the project.
 
@@ -97,7 +97,7 @@ For medium to large pipelines projects, you'll see these workflow phases explici
 
 So, if we have a `1_fetch` phase, code in the fetch folder :file_folder: would be used to do things like get data from web services, google drive, an FTP, or to scrape a website. `2_process` (or `2_munge`) might contain code that transforms the "fetched" data into more usable formats. 
 
-We recommend having `src` and `out` folders within each phase folder that contain code _for_ this phase (`src`) and data (or other files) produced _by_ this phase (`out`). When seeing some of our existing pipelines in action, you will also see other folders :file_folder: named `in`, `log`, and `tmp` to represent manually added files, logged/diagnostic output, and temporary data files, respectively.
+We recommend having `src` and `out` folders within each phase folder that contain code _for_ this phase (`src`) and data (or other files) produced _by_ this phase (`out`). When seeing some of our existing pipelines in action, you may also see other folders :file_folder: named `in`, `log`, and `tmp` to represent manually added files, logged/diagnostic output, and temporary data files, respectively.
 
 
 ### :keyboard: Activity: Restructure your code repository to follow our team's conventions for folders and files
