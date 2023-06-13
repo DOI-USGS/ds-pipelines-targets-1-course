@@ -1,4 +1,3 @@
-# Load libraries ----------------
 library(dplyr)
 library(forcats)
 library(ggplot2)
@@ -7,14 +6,12 @@ library(stringr)
 library(sbtools)
 library(whisker)
 
-# Set directory -----------------
 project_output_dir <- 'my_dir'
 dir.create(project_output_dir)
 
 mendota_file <- file.path(project_output_dir, 'model_RMSEs.csv')
 item_file_download('5d925066e4b0c4f70d0d0599', names = 'me_RMSE.csv', destinations = mendota_file, overwrite_file = TRUE)
 
-# create data summary -----------
 eval_data <- readr::read_csv(mendota_file, col_types = 'iccd') |>
   filter(str_detect(exper_id, 'similar_[0-9]+')) |>
   group_by(exper_id, model_type) |> 
@@ -25,7 +22,6 @@ eval_data <- readr::read_csv(mendota_file, col_types = 'iccd') |>
     ct_exper = n()
   )
 
-# add columns relevant to plotting
 eval_data <- eval_data |> 
   mutate(
     col = case_when(
@@ -50,56 +46,39 @@ eval_data <- eval_data |>
       )
     )
 
-# make plot -------------------
-
-# define plot details
-n_profs <- c(2, 10, 50, 100, 500, 980)
-line_wt <- 0.5
-pt_size <- 3
-lim_y <- c(0, 5)
-lim_x <- c(1, 1000)
-dist_dodge <- 0.05
-
-
-# create basic plot
 g <- 
   ggplot(data = eval_data, 
          aes(color = model_legend, shape = model_legend)) +
   geom_line(aes(x = n_prof, y = mean_rmse), 
             linetype = "dashed",
-            lwd = line_wt,
-            position = position_dodge(width = dist_dodge)) +
+            lwd = 0.5,
+            position = position_dodge(width = 0.05)) +
   geom_linerange(aes(x = n_prof, ymin = min_rmse, ymax = max_rmse),
-                 lwd = line_wt,
-                 position = position_dodge(width = dist_dodge)) +
-  geom_point(aes(x = n_profs, y = mean_rmse), 
-             position = position_dodge(width = dist_dodge), 
+                 lwd = 0.5,
+                 position = position_dodge(width = 0.05)) +
+  geom_point(aes(x = c(2, 10, 50, 100, 500, 980), y = mean_rmse), 
+             position = position_dodge(width = 0.05), 
              fill = "white",
-             size = pt_size) +
+             size = 3) +
   labs(
     x = "Training Temperature Profiles (#)",
     y = "Test RMSE (°C)"
   )
 
-# modify scales
 g <- g +
-  scale_x_log10(breaks = n_profs, limits = lim_x) +
-  scale_y_continuous(limits = rev(lim_y), trans = "reverse") +
+  scale_x_log10(breaks = n_profs, limits = c(1, 1000)) +
+  scale_y_continuous(limits = rev(c(0, 5)), trans = "reverse") +
   scale_color_manual("", values = c("#7570b3", "#d95f02", "#1b9e77")) +
   scale_shape_manual("", values = c(23, 22, 21))
 
-# finalize theme
 g <- g +
   theme_classic(base_size = 14) +
   theme(legend.position = c(0.3, 0.90))
 
-# save plot 
 ggsave(plot = g, filename = file.path(project_output_dir, 'figure_1.png'), 
        width = 1600, height = 2000, units = "px")
 
-# write eval data
 readr::write_csv(eval_data, path = file.path(project_output_dir, 'model_summary_results.csv'))
-
 
 render_data <- list(pgdl_980mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_980") |> pull(mean_rmse) |> round(2),
                     dl_980mean = filter(eval_data, model_type == 'dl', exper_id == "similar_980") |> pull(mean_rmse) |> round(2),
