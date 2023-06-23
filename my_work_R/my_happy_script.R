@@ -24,16 +24,6 @@ eval_data <- readr::read_csv(mendota_file, col_types = 'iccd') |>
 
 eval_data <- eval_data |> 
   mutate(
-    col = case_when(
-      model_type == 'pb' ~ '#1b9e77',
-      model_type == 'dl' ~'#d95f02',
-      model_type == 'pgdl' ~ '#7570b3'
-      ), 
-    pch = case_when(
-      model_type == 'pb' ~ 21,
-      model_type == 'dl' ~ 22,
-      model_type == 'pgdl' ~ 23
-      ), 
     n_prof = as.numeric(str_extract(exper_id, '[0-9]+')),
     model_type = factor(model_type, levels = c("pgdl", "dl", "pb"))
     ) |> 
@@ -50,13 +40,13 @@ g <-
   ggplot(data = eval_data, 
          aes(color = model_legend, shape = model_legend)) +
   geom_line(aes(x = n_prof, y = mean_rmse), 
-            linetype = "dashed",
+            linetype = "dotted",
             lwd = 0.5,
             position = position_dodge(width = 0.05)) +
   geom_linerange(aes(x = n_prof, ymin = min_rmse, ymax = max_rmse),
                  lwd = 0.5,
                  position = position_dodge(width = 0.05)) +
-  geom_point(aes(x = c(2, 10, 50, 100, 500, 980), y = mean_rmse), 
+  geom_point(aes(x = n_prof, y = mean_rmse), 
              position = position_dodge(width = 0.05), 
              fill = "white",
              size = 3) +
@@ -66,7 +56,7 @@ g <-
   )
 
 g <- g +
-  scale_x_log10(breaks = n_profs, limits = c(1, 1000)) +
+  scale_x_log10(breaks = unique(eval_data$n_prof)) +
   scale_y_continuous(limits = rev(c(0, 5)), trans = "reverse") +
   scale_color_manual("", values = c("#7570b3", "#d95f02", "#1b9e77")) +
   scale_shape_manual("", values = c(23, 22, 21))
