@@ -27,4 +27,4 @@ To create a local copy - use `git` to `clone` a local copy of your new template.
 
 To start the lesson, click on `course-instructions.md` and work your way through the course. We recommend viewing the instructions in the browser.
 
-![template-options-menu](archive/img/readme-template-instructions.png)
+![template-options-menu](archive/img/readme-instructions.png)
