@@ -18,7 +18,7 @@ Data analyses are often complex. Data pipelines are ways of managing that comple
 
 <h3>:keyboard: Installing tools</h3>
 
-Before getting started, you'll need some R packages. You will need to install `targets` and its companion package, `tarchetypes`. 
+Before getting started, you'll need some R packages. In the R console, you will need to install `targets` and its companion package, `tarchetypes`. 
 
 ```r
 install.packages(c("targets", "tarchetypes"))
